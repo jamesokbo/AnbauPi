@@ -5,9 +5,9 @@ var Sensor=require('../../models/sensor');
 var Monitor=require('../../models/monitor');
 var connectedFarms=require('../../socketHandlers/connectedFarms');
 
-validateMonitor=(data)=>{
+validateFarm=(data)=>{
   return new Promise((resolve,reject)=>{
-    Monitor.find({_id:mongoose.Types.ObjectId(data.monitorId), farmId:mongoose.Types.ObjectId(data.farmId), userId:mongoose.Types.ObjectId(socket.profile.sub)},(err,monitor)=>{
+    Farm.find({_id:mongoose.Types.ObjectId(data.farmId), userId:mongoose.Types.ObjectId(socket.profile.sub)},(err,monitor)=>{
       if(err){
         reject(err)
       }
@@ -22,7 +22,7 @@ validateMonitor=(data)=>{
 }
 validateSensor=(data)=>{
   return new Promise((resolve,reject)=>{
-    Sensor.find({monitorId:data.monitorId,type:data.type},(err,sensor)=>{
+    Sensor.find({farmId:data.monitorId,type:data.type},(err,sensor)=>{
       if(sensor){
         resolve(sensor);
       }

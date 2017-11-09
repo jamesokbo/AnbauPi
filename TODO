@@ -1,13 +1,12 @@
 GENERAL:
+Es conveniente crear una comunicación directa entre el servidor y los nodos con sensores (llamados en esta versión monitores), eliminando así al nodo
+intermediario. El usuario registrará Anbaus, los cuales serán únicamente virtuales y englobarán los monitores que el usuario registre a ellos.
 
 APP:
--
+Modificar la app. Ahora, el usuario debe crear un Anbau, dentro del cual dará de alta los monitores igual que como lo hacía con las farms antes. Básicamente,
+las Farms que solían englobar los monitores ahora serán sólo virtuales, llamadas Anbaus. Ya no habrá el nodo que trinagule la comunicación entre los monitores
+y el servidor. Las Anbaus serán únicamente conceptuales y no físicas.
 
 SERVER:
-
-MONITOR:
-Cuando el monitor se conecta por primera vez a la mainRPi, para poder registrarse en el servidor como perteneciente a esta mainRPi,
-la mainRPi tiene que tener un usuario registrado y se registrará a este mismo usuario como dueño del monitor, para esta comunicación la mainRPi
-deberá estar conectada al servidor.
-De esta forma, cuando un usuario pide los monitores asociados a una mainRPi se buscan únicamente los monitores pertenecientes al usuario al que
-pertenece el socket abierto en cuestión, cuya identidad está protegida por auth0.
+Eliminar todas las transacciones de validación de monitores, ahora el servidor únicamente se comunicará con lo que solían ser las farms, las cuales ahora
+serán el nodo final.
