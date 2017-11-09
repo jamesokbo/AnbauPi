@@ -1,0 +1,30 @@
+{
+  "name": "braunker-server",
+  "version": "0.0.1",
+  "description": "Resource server for the braunker-app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Jaime Okhuysen <jamesokbo@gmail.com>",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "async": "^2.5.0",
+    "body-parser": "1.17.2",
+    "dotenv": "^4.0.0",
+    "ejs": "^2.5.7",
+    "express": "^4.15.3",
+    "express-jwt": "^5.3.0",
+    "express-jwt-authz": "^1.0.0",
+    "jsonwebtoken": "^7.4.1",
+    "jwk-to-pem": "^1.2.6",
+    "jwks-rsa": "^1.2.0",
+    "mongoose": "^4.11.5",
+    "rxjs": "^5.4.2",
+    "socket.io": "^2.0.3",
+    "socketio-jwt": "^4.5.0",
+    "timeout-callback": "^2.0.0"
+  }
+}

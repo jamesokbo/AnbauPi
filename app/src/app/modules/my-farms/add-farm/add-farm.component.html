@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Add New Farm</h1>
+    <form #farmForm="ngForm">
+      <div class="form-group">
+        <label for="id">Id</label>
+        <input type="text" class="form-control" id="id" name="id" [(ngModel)]="farm.id" required minlength="24"
+         (focus)="id.focused = true" (blur)="id.focused = false" #id="ngModel">
+        <div *ngIf="id.invalid && id.dirty && !id.focused" class="alert alert-danger">Invalid ID</div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="farm.name" required minlength="4"
+        (focus)="name.focused = true" (blur)="name.focused = false" maxlength="12" #name="ngModel">
+        <div *ngIf="name.invalid && name.dirty && !name.focused" class="alert alert-danger">Name must have between 4 and 12 characters</div>
+      </div>
+
+      <button type="submit" class="btn btn-success" (click)="newFarm()" [disabled]="!farmForm.valid">Submit</button>
+      <button type="submit" class="btn btn-danger" (click)="closeFarmForm()">Cancel</button>
+    </form>
+</div>

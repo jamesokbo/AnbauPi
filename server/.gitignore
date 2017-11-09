@@ -1,0 +1,3 @@
+startMongoDB
+node_modules
+.env
