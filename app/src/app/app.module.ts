@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgUploaderModule } from 'ngx-uploader';
 
 import { AdminModule } from './modules/admin/admin.module';
-import { MyFarmsModule } from './modules/my-farms/my-farms.module';
+import { MyAnbausModule } from './modules/my-anbaus/my-anbaus.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './modules/home/home.component';
@@ -41,7 +41,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ReactiveFormsModule,
     HttpClientModule,
     AdminModule,
-    MyFarmsModule,
+    MyAnbausModule,
     NgUploaderModule,
     AppRoutingModule //always last because of wildcard route
   ],

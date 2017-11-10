@@ -1,13 +1,13 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import {MyFarmsComponent} from './my-farms.component';
+import {MyAnbausComponent} from './my-anbaus.component';
 
 import { AuthGuardService as AuthGuard } from '../../modules/auth/auth-guard.service';
 import { ScopeGuardService as ScopeGuard } from '../../modules/auth/scope-guard.service';
 
 const FARMROUTES: Routes = [
-  {path: 'my-farms', component:MyFarmsComponent, canActivate: [AuthGuard]},
+  {path: 'my-anbaus', component:MyAnbausComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
@@ -18,4 +18,4 @@ const FARMROUTES: Routes = [
     RouterModule
   ]
 })
-export class FarmRoutingModule { }
+export class AnbauRoutingModule { }

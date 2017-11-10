@@ -6,50 +6,50 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
-export class MyFarmsService {
-  myFarms:Observable<any[]>;
-  farmSubject:ReplaySubject<any>;
-  activeFarmSubject:ReplaySubject<any>;
+export class MyAnbausService {
+  myAnbaus:Observable<any[]>;
+  anbauSubject:ReplaySubject<any>;
+  activeAnbauSubject:ReplaySubject<any>;
   socketSubscription: Subscription;
 
   constructor(public socketService: SocketService){
-    this.activeFarmSubject=new ReplaySubject<any>(1);
+    this.activeAnbauSubject=new ReplaySubject<any>(1);
     this.init();
   }
 
   init(){
-    this.farmSubject=new ReplaySubject<any>(1);
+    this.anbauSubject=new ReplaySubject<any>(1);
   }
-  validateFarm(farm):Promise<any>{
+  validateAnbau(anbau):Promise<any>{
     return new Promise((resolve,reject)=>{
 
     })
   }
-  activateFarm(farm){
-    this.activeFarmSubject.next(farm);
+  activateAnbau(anbau){
+    this.activeAnbauSubject.next(anbau);
   }
-  getFarms(){
+  getAnbaus(){
     this.socketSubscription=this.socketService.socketSubscription().subscribe(
     (socket:any)=>{
-      socket.emit('getFarms',(err,farms)=>{
+      socket.emit('getAnbaus',(err,anbaus)=>{
         if(err){
-          this.farmSubject.error(err);
+          this.anbauSubject.error(err);
         }
-        this.farmSubject.next(farms);
+        this.anbauSubject.next(anbaus);
       })
     },
     error=>{
-      this.farmSubject.error(error);
+      this.anbauSubject.error(error);
     },
     ()=>{
       console.log("complete")
     })
   }
-  newFarm(data):Promise<any>{
+  newAnbau(data):Promise<any>{
     return new Promise((resolve,reject)=>{
       this.socketSubscription=this.socketService.socketSubscription().subscribe(
       (socket:any)=>{
-        socket.emit('newFarm',data,(err,res)=>{
+        socket.emit('newAnbau',data,(err,res)=>{
           if(err){
             reject(err);
             this.socketSubscription.unsubscribe();
@@ -64,10 +64,10 @@ export class MyFarmsService {
       })
     })
   }
-  public farms():Observable<any>{
-    return this.farmSubject.asObservable();
+  public anbaus():Observable<any>{
+    return this.anbauSubject.asObservable();
   }
-  public activeFarm():Observable<any>{
-    return this.activeFarmSubject.asObservable();
+  public activeAnbau():Observable<any>{
+    return this.activeAnbauSubject.asObservable();
   }
 }
