@@ -12,20 +12,26 @@ app.use(bodyParser.urlencoded({ extended: true })); // bodyParser, this will let
 app.use(bodyParser.json());
 
 
-var http = require('http').Server(app);
-var io=require('socket.io')(http);
+var userHttp = require('http').Server(app);
+var userIo=require('socket.io')(userHttp);
 require('dotenv').config();
-
 if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
   throw 'Make sure you have AUTH0_DOMAIN, and AUTH0_AUDIENCE in your .env file'
 }
-
-io.on('connection', (socket)=>{
+userIo.on('connection', (socket)=>{
   require("./socketHandlers/userSocketHandler")(socket);
 });
+var userPort = process.env.PORT || 8080;  // set our port
+userHttp.listen(userPort, function(){
+  console.log('server running @ port:'+userPort);
+});
 
-var port = process.env.PORT || 8080;  // set our port
-
-http.listen(port, function(){
-  console.log('server running @ port:'+port);
+var monitorHttp= require('http').Server(app);
+var monitorIo= require('socket.io')(monitorHttp);
+monitorIo.on('connection', (socket)=>{
+  require("./socketHandlers/monitorSocketHandler");
+})
+var monitorPort=8081;
+monitorHttp.listen(monitorPort, function(){
+  console.log('server running @ port:'+monitorPort);
 });

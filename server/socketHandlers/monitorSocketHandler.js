@@ -1,19 +1,19 @@
-var connectedFarms=require("./connectedFarms");
+var connectedMonitors=require("./connectedMonitors");
 var mongoose = require("mongoose");
 var errors= require("../errors")
-var Farm=require("../models/farm");
+var Monitor=require("../models/monitor");
 
-var authenticateFarm = function(socket){
+var authenticateMonitor = function(socket){
   return new Promise((resolve,reject)=>{
     socket.on("authenticate",(data,cb)=>{
-      //TODO: think of a better way to authenticate the farm
-      Farm.find({_id:mongoose.Types.ObjectId(data.id), status:false},(err,farm)=>{
+      //TODO: think of a better way to authenticate the monitor
+      Monitor.find({_id:mongoose.Types.ObjectId(data.id)},(err,monitor)=>{
         if(err){
           reject(err);
         }
-        if(farm){
-          socket.id=farm._id;
-          resolve(farm)
+        if(monitor){
+          socket.id=monitor._id;
+          resolve(monitor)
         }
         else{
           reject(errors.s013);
@@ -25,23 +25,22 @@ var authenticateFarm = function(socket){
 
 module.exports=function(socket){
   socket.auth=false;
-  authenticateFarm(socket).then(()=>{
+  authenticateMonitor(socket).then(()=>{
     socket.auth=true;
     socket.date=Date.now();
-    connectedFarms.connectFarm(socket).then(()=>{
-      Farm.update({_id:socket.id},{$set:{status:true,lastConnection:socket.date}},(err,res)=>{
+    connectedMonitors.connectMonitor(socket).then(()=>{
+      Monitor.update({_id:socket.id},{$set:{status:true,lastConnection:socket.date}},(err,res)=>{
         if(err){
           throw(err);
         }
-        //TODO: pass the authenticated farm socket to farm services
-        require('../services/farmService')(socket);
+        //TODO: pass the authenticated monitor socket to monitor services
         require('../services/monitorService')(socket);
       })
     })
 
     socket.on("disconnect",()=>{
-      connectedFarms.disconnectFarm(socket).then(()=>{
-        Farm.update({_id:socket.id, lastConnection:socket.date},{$set:{status:false}},(err,res)=>{
+      connectedMonitors.disconnectMonitor(socket).then(()=>{
+        Monitor.update({_id:socket.id, lastConnection:socket.date},{$set:{status:false}},(err,res)=>{
           if(err){
             throw(err);
           }

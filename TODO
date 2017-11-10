@@ -8,5 +8,5 @@ las Farms que solían englobar los monitores ahora serán sólo virtuales, llama
 y el servidor. Las Anbaus serán únicamente conceptuales y no físicas.
 
 SERVER:
-Eliminar todas las transacciones de validación de monitores, ahora el servidor únicamente se comunicará con lo que solían ser las farms, las cuales ahora
-serán el nodo final.
+-Desarrollar el flujo resultante de que un usuario agregue o borre un sensor de un monitor
+-Desarrollar monitorService.js, aquí deben venir todos los eventos enviados por los monitores (rReading, etc.)

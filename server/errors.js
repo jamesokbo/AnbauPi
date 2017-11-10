@@ -9,6 +9,6 @@ module.exports={
     s010: Error('s010: LowerBound must be smaller than UpperBound'),
     s011: Error('s011: Unidentified user'),
     s012: Error('s012: User already connected somewhere else'),
-    s013: Error('s013: This farm appears to be connected or is not recognized'),
+    s013: Error('s013: This monitor appears to be connected or is not recognized'),
     s017: Error('s017: There is no sensor of this type associated to this monitor')
 };

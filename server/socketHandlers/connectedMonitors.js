@@ -8,6 +8,11 @@ module.exports={
 
     connectMonitor:(socket)=>{
       return new Promise((resolve,reject)=>{
+        var monitorIndex=this.ids.indexOf(socket.id);
+        if(monitorIndex!=-1){
+          this.sockets.splice(monitorIndex,1);
+          this.ids.splice(monitorIndex,1);
+        }
         this.sockets.push(socket);
         this.ids.push(socket.id);
         resolve();
@@ -15,10 +20,10 @@ module.exports={
     }
     disconnectMonitor:(socket)=>{
       return new Promise((resolve,reject)=>{
-        var farmIndex=this.ids.indexOf(socket.id);
-        if(farmIndex!=-1){
-          this.sockets.splice(farmIndex,1);
-          this.ids.splice(farmIndex,1);
+        var monitorIndex=this.ids.indexOf(socket.id);
+        if(monitorIndex!=-1){
+          this.sockets.splice(monitorIndex,1);
+          this.ids.splice(monitorIndex,1);
           resolve();
 
         }
@@ -27,11 +32,11 @@ module.exports={
         }
       })
     }
-    getMonitor:(farmId)=>{
+    getMonitor:(monitorId)=>{
       return new Promise((resolve,reject)=>{
-        var farmIndex=this.ids.indexOf(socket.id);
-        if(farmIndex!=-1){
-          resolve(sockets[farmIndex]);
+        var monitorIndex=this.ids.indexOf(socket.id);
+        if(monitorIndex!=-1){
+          resolve(sockets[monitorIndex]);
         }
         else{
           reject(errors.s008);

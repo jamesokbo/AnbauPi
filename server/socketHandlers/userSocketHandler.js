@@ -44,7 +44,7 @@ module.exports=function(socket){
     socket.auth=true;
     connectedUsers.connectUser(socket).then(()=>{
       //TODO: pass the authenticated user socket to all user services
-      require('../services/userServices/userFarmService')(socket);
+      require('../services/userServices/userMonitorService')(socket);
     })
 
     socket.on("disconnect",()=>{
