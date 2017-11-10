@@ -24,7 +24,7 @@ export class AddAnbauComponent implements OnInit, OnDestroy {
   ngOnDestroy(){}
 
   newAnbau(){
-    this.anbauService.newAnbaus(this.anbau).then(()=>{
+    this.anbauService.newAnbau(this.anbau).then(()=>{
       this.closeAnbausForm();
     }).catch(error=>{
       console.log(error)

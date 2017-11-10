@@ -31,5 +31,7 @@ export class AnbauListComponent implements OnInit, OnDestroy {
   activateAnbau(anbau){
     this.anbauService.activateAnbau(anbau);
   }
-  ngOnDestroy(){}
+  ngOnDestroy(){
+    this.anbausSubscription.unsubscribe();
+  }
 }

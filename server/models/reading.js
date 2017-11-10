@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema=mongoose.Schema;
 
 var readingSchema= mongoose.Schema({
-	farmId:String,
+	anbauId:String,
 	monitorId:String,
 	sensorId:String,
 	type:String,

@@ -27,7 +27,7 @@ module.exports=function(socket){
     })
   })
   socket.on('deleteMonitor',(data,cb)=>{
-    Monitor.update({_id:mongoose.Types.ObjectId(data.farmId), anbauId:data.anbauId, userId:socket.profile.sub},
+    Monitor.update({_id:mongoose.Types.ObjectId(data._id), anbauId:data.anbauId, userId:socket.profile.sub},
     {$set:{name:"", anbauId:"", userId:""}},(err,res)=>{
       if(err){
         cb(err);

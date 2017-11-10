@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema=mongoose.Schema;
 var sensorSchema= mongoose.Schema({
-    farmId:String, /*Id of the monitor to which this sensor belongs to*/
+    anbauId:String, /*Id of the monitor to which this sensor belongs to*/
     type:String, /*sensor type*/
     nameIcon:String,
     unit:{type:String},

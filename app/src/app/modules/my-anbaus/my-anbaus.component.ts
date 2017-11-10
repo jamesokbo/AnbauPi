@@ -32,7 +32,7 @@ export class MyAnbausComponent implements OnInit, OnDestroy {
     this.activeAnbauSubscription=this.anbauService.activeAnbau().subscribe((anbau)=>{this.activeAnbau=anbau});
   }
   ngOnDestroy(){
-    this.anbausSubscription.unsubscribe();
+    this.activeAnbauSubscription.unsubscribe();
   }
   closeForm(event:boolean){
     this.addAnbau=false;
