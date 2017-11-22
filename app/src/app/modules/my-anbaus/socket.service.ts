@@ -30,27 +30,6 @@ export class SocketService {
       })
     })
   }
-  /*
-  public authenticateSocket(){
-    return new Promise((resolve,reject)=>{
-      let socket=io('http://localhost:8080');
-      socket.on('connect',()=>{
-        this.auth.getAccessTokenAndProfile((err,data)=>{
-          if(err){
-            reject(err);
-          }
-          socket.emit('authenticate',data,(err,res)=>{
-            if(err){
-              reject(err);
-            }
-            console.log(res);
-            resolve(socket);
-          })
-        })
-      })
-    });
-  }
-  */
   public socketSubscription():Observable<any>{
     return this.socketSubject.asObservable();
   }

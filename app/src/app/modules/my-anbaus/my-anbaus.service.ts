@@ -7,10 +7,9 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class MyAnbausService {
-  myAnbaus:Observable<any[]>;
   anbauSubject:ReplaySubject<any>;
   activeAnbauSubject:ReplaySubject<any>;
-  socketSubscription: Subscription;
+  serverSocketPromise:Promise<any>;
 
   constructor(public socketService: SocketService){
     this.activeAnbauSubject=new ReplaySubject<any>(1);
@@ -19,50 +18,38 @@ export class MyAnbausService {
 
   init(){
     this.anbauSubject=new ReplaySubject<any>(1);
-  }
-  validateAnbau(anbau):Promise<any>{
-    return new Promise((resolve,reject)=>{
-
+    this.serverSocketPromise=new Promise<any>((resolve,reject)=>{
+      this.socketService.socketSubscription().subscribe(
+      (socket:any)=>{
+        resolve(socket);
+      })
     })
+
   }
   activateAnbau(anbau){
     this.activeAnbauSubject.next(anbau);
   }
   getAnbaus(){
-    this.socketSubscription=this.socketService.socketSubscription().subscribe(
-    (socket:any)=>{
+    this.serverSocketPromise.then((socket)=>{
       socket.emit('getAnbaus',(err,anbaus)=>{
         if(err){
           this.anbauSubject.error(err);
         }
         this.anbauSubject.next(anbaus);
-      })
-    },
-    error=>{
-      this.anbauSubject.error(error);
-    },
-    ()=>{
-      console.log("complete")
+      });
     })
   }
   newAnbau(data):Promise<any>{
     return new Promise((resolve,reject)=>{
-      this.socketSubscription=this.socketService.socketSubscription().subscribe(
-      (socket:any)=>{
+      this.serverSocketPromise.then((socket)=>{
         socket.emit('newAnbau',data,(err,res)=>{
           if(err){
-            reject(err);
-            this.socketSubscription.unsubscribe();
+            reject(err)
           }
           resolve(res);
-          this.socketSubscription.unsubscribe();
-        })
-      }, error=>{
-        reject(error);
-        this.socketSubscription.unsubscribe();
-      }, ()=>{
+        });
       })
-    })
+    });
   }
   public anbaus():Observable<any>{
     return this.anbauSubject.asObservable();

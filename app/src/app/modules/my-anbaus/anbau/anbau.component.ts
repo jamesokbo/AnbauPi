@@ -7,7 +7,8 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'anbau',
   template:`
-  `, //TODO: add anbau template
+    
+  `,
   styleUrls:['anbau.component.css']
 })
 export class AnbauComponent implements OnInit, OnDestroy {
@@ -16,7 +17,7 @@ export class AnbauComponent implements OnInit, OnDestroy {
 
   constructor(public anbauService: MyAnbausService, public fb:FormBuilder) {}
   ngOnInit() {
-    console.log("initiated anbau-list component")
+    console.log("initiated anbau component")
     this.anbauSubscription=this.anbauService.activeAnbau().subscribe((anbau)=>{
       this.anbau=anbau;
       //TODO: request monitors associated with this

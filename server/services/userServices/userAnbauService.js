@@ -1,6 +1,6 @@
 var mongoose=require('mongoose');
 var errors=require('../../errors');
-var Anbau=require('../../models/monitor');
+var Anbau=require('../../models/anbau');
 
 
 module.exports=function(socket){
@@ -33,9 +33,11 @@ module.exports=function(socket){
   })
   socket.on('deleteAnbau',(data,cb)=>{
     //TODO: we have to release the associated monitors first. Should we delete all their previously gathered data?
+
   })
 
-  socket.on('getAnbaus',(data,cb)=>{
+  socket.on('getAnbaus',(cb)=>{
+    console.log("user "+socket.profile.sub+" requested Anbaus");
     Anbau.find({userId:socket.profile.sub},(err,anbaus)=>{
       if(err){
         cb(err)

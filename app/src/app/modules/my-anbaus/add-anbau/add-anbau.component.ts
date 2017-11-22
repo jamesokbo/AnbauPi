@@ -25,12 +25,14 @@ export class AddAnbauComponent implements OnInit, OnDestroy {
 
   newAnbau(){
     this.anbauService.newAnbau(this.anbau).then(()=>{
-      this.closeAnbausForm();
+      console.log("added anbau succesfuly")
+      this.anbauService.getAnbaus();
+      this.closeAnbauForm();
     }).catch(error=>{
       console.log(error)
     })
   }
-  closeAnbausForm(){
+  closeAnbauForm(){
     this.closeForm.emit(true);
   }
 }

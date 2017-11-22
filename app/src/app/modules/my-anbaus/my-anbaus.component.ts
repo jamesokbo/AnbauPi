@@ -7,12 +7,11 @@ import { Subscription } from 'rxjs/Subscription';
   selector: 'my-anbaus',
   template: `
   <div class="row">
-    <div class="col-md-3 col-md-offset-5 addNewMainRPi" *ngIf="!addAnbau && !activeAnbau">
+    <div class="col-md-3 col-md-offset-5 addNewMainRPi" *ngIf="!addAnbau">
         <button type="button" class="btn btn-info btn-add" (click)="openForm()">Add Anbau!</button>
     </div>
-    <add-anbau *ngIf="addAnbau && !activeAnbau" (closeForm)="closeForm($event)"></add-anbau>
-    <anbau-list *ngIf="!activeAnbau"></anbau-list>
-    <!-- <anbau *ngIf="activeAnbau"></anbau>TODO: anbau.component-->
+    <add-anbau *ngIf="addAnbau" (closeForm)="closeForm($event)"></add-anbau>
+    <anbau-list></anbau-list>
   </div>
   `,
   providers: [
@@ -26,7 +25,7 @@ export class MyAnbausComponent implements OnInit, OnDestroy {
   addAnbau: boolean;
   activeAnbau: {};
 
-  constructor(public anbauService: MyAnbausService) { }
+  constructor(public anbauService: MyAnbausService) {this.anbauService.getAnbaus()}
   ngOnInit() {
     this.addAnbau=false;
     this.activeAnbauSubscription=this.anbauService.activeAnbau().subscribe((anbau)=>{this.activeAnbau=anbau});
