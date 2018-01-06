@@ -33,7 +33,6 @@ module.exports=function(socket){
         if(err){
           throw(err);
         }
-        //TODO: pass the authenticated monitor socket to monitor services
         require('../services/monitorService')(socket);
       })
     })

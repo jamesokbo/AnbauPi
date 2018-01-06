@@ -7,6 +7,7 @@ import { AnbauListComponent } from './anbau-list/anbau-list.component';
 import { AddAnbauComponent } from './add-anbau/add-anbau.component';
 import { AnbauComponent } from './anbau/anbau.component';
 import { MyAnbausService } from './my-anbaus.service';
+import { AnbauService } from './anbau/anbau.service';
 import { SocketService } from './socket.service';
 
 //TODO: import { MonitorComponent } from './monitor.component';

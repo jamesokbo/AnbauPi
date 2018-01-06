@@ -1,30 +1,32 @@
-import { Component, EventEmitter, OnInit, OnDestroy, Output } from '@angular/core';
+import { Component, Input, EventEmitter, OnInit, OnDestroy, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MyAnbausService } from '../my-anbaus.service';
+import { AnbauService } from './anbau.service';
 import { SocketService } from '../socket.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'anbau',
   template:`
-    
   `,
-  styleUrls:['anbau.component.css']
+  styleUrls:['anbau.component.css'],
+  providers:[AnbauService]
 })
 export class AnbauComponent implements OnInit, OnDestroy {
-  anbau: [any];
-  anbauSubscription: Subscription;
+  @Input() anbau: {};
+  monitors:[any];
 
-  constructor(public anbauService: MyAnbausService, public fb:FormBuilder) {}
-  ngOnInit() {
-    console.log("initiated anbau component")
-    this.anbauSubscription=this.anbauService.activeAnbau().subscribe((anbau)=>{
-      this.anbau=anbau;
-      //TODO: request monitors associated with this
-    });
+  constructor(public anbausService: MyAnbausService, public anbauService:AnbauService, public fb:FormBuilder) {}
+  ngOnInit(){
+    this.anbauService.monitors().subscribe((monitors)=>{
+      this.monitors=monitors;
+    })
+  }
+  getMonitors(anbau){
+    this.anbauService.getMonitors(anbau);
   }
   dectivateAnbau(){
-    this.anbauService.activateAnbau({});
+    this.anbausService.activateAnbau({});
   }
   ngOnDestroy(){}
 }

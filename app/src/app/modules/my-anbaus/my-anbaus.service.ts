@@ -7,17 +7,17 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class MyAnbausService {
-  anbauSubject:ReplaySubject<any>;
+  anbausSubject:ReplaySubject<any>;
   activeAnbauSubject:ReplaySubject<any>;
   serverSocketPromise:Promise<any>;
 
   constructor(public socketService: SocketService){
-    this.activeAnbauSubject=new ReplaySubject<any>(1);
     this.init();
   }
 
   init(){
-    this.anbauSubject=new ReplaySubject<any>(1);
+    this.activeAnbauSubject=new ReplaySubject<any>(1);
+    this.anbausSubject=new ReplaySubject<any>(1);
     this.serverSocketPromise=new Promise<any>((resolve,reject)=>{
       this.socketService.socketSubscription().subscribe(
       (socket:any)=>{
@@ -33,9 +33,9 @@ export class MyAnbausService {
     this.serverSocketPromise.then((socket)=>{
       socket.emit('getAnbaus',(err,anbaus)=>{
         if(err){
-          this.anbauSubject.error(err);
+          this.anbausSubject.error(err);
         }
-        this.anbauSubject.next(anbaus);
+        this.anbausSubject.next(anbaus);
       });
     })
   }
@@ -52,7 +52,7 @@ export class MyAnbausService {
     });
   }
   public anbaus():Observable<any>{
-    return this.anbauSubject.asObservable();
+    return this.anbausSubject.asObservable();
   }
   public activeAnbau():Observable<any>{
     return this.activeAnbauSubject.asObservable();
